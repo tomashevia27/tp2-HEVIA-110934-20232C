@@ -2,6 +2,12 @@
 #include "juego.h"
 #include "adversario.h"
 #include "pokemon.h"
+#include "estructura_pokemon.h"
+
+struct adversario{
+	lista_t pokemones;
+	unsigned int puntaje;
+};
 
 adversario_t *adversario_crear(lista_t *pokemon)
 {

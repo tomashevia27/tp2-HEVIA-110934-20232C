@@ -5,20 +5,10 @@
 #include "ataque.h"
 #include <string.h>
 #include <stdbool.h>
+#include "estructura_pokemon.h"
 
 #define CANT_ATAQUES 3
 #define CANT_CARACTERES 255
-
-struct pokemon {
-	char nombre[20];
-	enum TIPO tipo_pokemon;
-	struct ataque ataques[CANT_ATAQUES];
-};
-
-struct info_pokemon {
-	pokemon_t **pokemones;
-	int cantidad_pokemones;
-};
 
 void pokemon_destruir_todo(informacion_pokemon_t *ip)
 {
@@ -84,6 +74,11 @@ pokemon_t *leer_pokemon(FILE *archivo)
 		free(pokemon_leido);
 		return NULL;
 	}
+
+	for (int i = 0; i < 3; i++){
+		pokemon_leido->ataque_fue_usado[i] = false;
+	}
+	
 
 	return pokemon_leido;
 }
