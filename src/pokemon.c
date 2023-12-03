@@ -75,10 +75,9 @@ pokemon_t *leer_pokemon(FILE *archivo)
 		return NULL;
 	}
 
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 3; i++) {
 		pokemon_leido->ataque_fue_usado[i] = false;
 	}
-	
 
 	return pokemon_leido;
 }

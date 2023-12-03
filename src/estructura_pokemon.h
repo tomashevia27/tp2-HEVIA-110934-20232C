@@ -4,6 +4,7 @@
 #include "pokemon.h"
 #include "tipo.h"
 #include "ataque.h"
+#include <stdbool.h>
 
 #define CANT_ATAQUES 3
 
