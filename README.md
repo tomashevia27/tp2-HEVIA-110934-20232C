@@ -85,18 +85,18 @@ porque usa 2 veces `lista_buscar_elemento` que como maximo es O(3), al igual que
 
 `juego_destruir`: libera toda la memoria usada por el juego, usando los destructores de listas y abb. es O(n) 
 
-
-
 #### adversario.c
 
 decidi usar esta estructura:
 ```c
-struct adversario{
-	lista_t* pokemones_disponibles;
-	lista_t* pokemones_adversario;
-	lista_t* pokemones_jugador;
+struct adversario {
+	lista_t *pokemones_disponibles;
+	lista_t *pokemones_adversario;
+	lista_t *pokemones_jugador;
 	jugada_t jugadas_posibles[9];
 	bool se_uso_jugada[9];
+	int posicion_ultima_jugada_usada;
+	abb_t *ataques_disponibles_jugador;
 };
 ```
 
@@ -119,7 +119,7 @@ la complejidad es O(n) (mismo caso que la funcion anterior).
 luego se genera un numero random, se verifica que la jugada en la posicion del numero random no se haya utilizado (si se utilizo se recorre hasta el numero que no se haya usado) y luego se devuelve una jugada que no se haya usado aun (siempre a menos que se la llame mas de 9 veces a la funcion, que en nuestro juego no pasa).
 complejidad O(n), ya que puede llegar a recorrer todas las jugadas.
 
-`adversario_informar_jugada`: decidi no usar esta funcion
+`adversario_informar_jugada`:use esta funcion para controlar que la jugada del jugador haya sido valida, en caso de no serlo, toma la ultima jugada del adversario y la marca como no usada. esto lo hago para que durante las 9 rondas el adversario tenga jugadas disponibles para jugar.
 
 `adversario_destruir`: destruye al adversario. complejidad O(n)
 
@@ -156,10 +156,7 @@ la complejidad es O(n), ya que usa juego_seleccionar_pokemon que es O(n) y luego
 `jugar`: se encarga de hacer jugar las 9 rondas al usuario. le pide que ingrese una jugada, genera una jugada del adversario y juego un turno, si la jugada ingresada no es valida, la ronda no cuenta y se vuelve a pedir una jugada, asi hasta jugar las 9 rondas.
 luego compara los puntajes obtenidos por los jugadores y imprime el resultado por pantalla. la complejidad es O(n) ya que recorre la lista (O(n)) varias veces para mostrar los pokemones, 
 
-
-
 `salir`: corta el juego haciendo que estado->continuar sea false, por lo tanto al salir de esta funcion se termina el bucle while. es O(1).
-
 
 `listar_pokemones`: se encarga de mostrar todos los pokemones por pantalla. es O(n)
 

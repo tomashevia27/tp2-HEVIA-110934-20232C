@@ -4,6 +4,7 @@
 #include "pokemon.h"
 #include "estructura_pokemon.h"
 #include "pokemon.h"
+#include "abb.h"
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -15,7 +16,16 @@ struct adversario {
 	lista_t *pokemones_jugador;
 	jugada_t jugadas_posibles[9];
 	bool se_uso_jugada[9];
+	int posicion_ultima_jugada_usada;
+	abb_t *ataques_disponibles_jugador;
 };
+
+int funcion_comparadora(void *a1, void *a2)
+{
+	char *ataque1 = a1;
+	char *ataque2 = a2;
+	return strcmp(ataque1, ataque2);
+}
 
 adversario_t *adversario_crear(lista_t *pokemon)
 {
@@ -40,12 +50,30 @@ adversario_t *adversario_crear(lista_t *pokemon)
 		return NULL;
 	}
 
+	abb_comparador comparador = (abb_comparador)funcion_comparadora;
+	adversario->ataques_disponibles_jugador = abb_crear(comparador);
+	if (!adversario->ataques_disponibles_jugador) {
+		free(adversario->pokemones_adversario);
+		free(adversario->pokemones_jugador);
+		free(adversario);
+		return NULL;
+	}
+
 	for (int i = 0; i < 9; i++) {
 		adversario->se_uso_jugada[i] = false;
 		strcpy(adversario->jugadas_posibles[i].pokemon, "\0");
 		strcpy(adversario->jugadas_posibles[i].ataque, "\0");
 	}
+
 	return adversario;
+}
+
+void agregar_ataque_abb(const struct ataque *ataque,
+			void *ataques_disponibles_jugador)
+{
+	abb_t *abb_ataques_disponibles_jugador = ataques_disponibles_jugador;
+	abb_ataques_disponibles_jugador = abb_insertar(
+		abb_ataques_disponibles_jugador, (char *)(ataque->nombre));
 }
 
 bool adversario_seleccionar_pokemon(adversario_t *adversario, char **nombre1,
@@ -78,7 +106,10 @@ bool adversario_seleccionar_pokemon(adversario_t *adversario, char **nombre1,
 	adversario->pokemones_adversario =
 		lista_insertar(adversario->pokemones_adversario, pokemon_2);
 	adversario->pokemones_jugador =
-		lista_insertar(adversario->pokemones_jugador, pokemon_2);
+		lista_insertar(adversario->pokemones_jugador, pokemon_3);
+
+	con_cada_ataque(pokemon_3, agregar_ataque_abb,
+			adversario->ataques_disponibles_jugador);
 
 	return true;
 }
@@ -101,6 +132,11 @@ bool adversario_pokemon_seleccionado(adversario_t *adversario, char *nombre1,
 		lista_insertar(adversario->pokemones_jugador, pokemon_2);
 	adversario->pokemones_adversario =
 		lista_insertar(adversario->pokemones_adversario, pokemon_3);
+
+	con_cada_ataque(pokemon_1, agregar_ataque_abb,
+			adversario->ataques_disponibles_jugador);
+	con_cada_ataque(pokemon_2, agregar_ataque_abb,
+			adversario->ataques_disponibles_jugador);
 
 	return true;
 }
@@ -133,17 +169,24 @@ jugada_t adversario_proxima_jugada(adversario_t *adversario)
 	}
 
 	adversario->se_uso_jugada[numero_aleatorio] = true;
+	adversario->posicion_ultima_jugada_usada = numero_aleatorio;
 
 	return adversario->jugadas_posibles[numero_aleatorio];
 }
 
 void adversario_informar_jugada(adversario_t *a, jugada_t j)
 {
+	char *ataque_jugador = NULL;
+	ataque_jugador = abb_quitar(a->ataques_disponibles_jugador, j.ataque);
+	if (!ataque_jugador) {
+		a->se_uso_jugada[a->posicion_ultima_jugada_usada] = false;
+	}
 }
 
 void adversario_destruir(adversario_t *adversario)
 {
 	lista_destruir(adversario->pokemones_adversario);
 	lista_destruir(adversario->pokemones_jugador);
+	abb_destruir(adversario->ataques_disponibles_jugador);
 	free(adversario);
 }

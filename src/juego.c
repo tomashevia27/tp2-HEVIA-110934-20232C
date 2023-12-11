@@ -246,27 +246,28 @@ resultado_jugada_t juego_jugar_turno(juego_t *juego, jugada_t jugada_jugador1,
 		return resultado;
 
 	if (abb_buscar(juego->jugador_1->ataques_disponibles,
-		       ataque_jugador1) != NULL) {
+		       ataque_jugador1) != NULL)
 		resultado.jugador1 = calcular_ataque(
 			ataque_jugador1->tipo, pokemon_tipo(pokemon_jugador2));
-		juego->jugador_1->puntaje += calcular_puntaje(
-			resultado.jugador1, ataque_jugador1->poder);
-		ataque_jugador1 = abb_quitar(
-			juego->jugador_1->ataques_disponibles, ataque_jugador1);
-	}
+
 	if (abb_buscar(juego->jugador_2->ataques_disponibles,
-		       ataque_jugador2) != NULL) {
+		       ataque_jugador2) != NULL)
 		resultado.jugador2 = calcular_ataque(
 			ataque_jugador2->tipo, pokemon_tipo(pokemon_jugador1));
+
+	if (resultado.jugador1 != ATAQUE_ERROR &&
+	    resultado.jugador2 != ATAQUE_ERROR) {
+		juego->jugador_1->puntaje += calcular_puntaje(
+			resultado.jugador1, ataque_jugador1->poder);
 		juego->jugador_2->puntaje += calcular_puntaje(
 			resultado.jugador2, ataque_jugador2->poder);
 		ataque_jugador1 = abb_quitar(
+			juego->jugador_1->ataques_disponibles, ataque_jugador1);
+		ataque_jugador2 = abb_quitar(
 			juego->jugador_2->ataques_disponibles, ataque_jugador2);
+		juego->rondas_jugadas++;
 	}
 
-	if (resultado.jugador1 != ATAQUE_ERROR &&
-	    resultado.jugador2 != ATAQUE_ERROR)
-		juego->rondas_jugadas++;
 	return resultado;
 }
 

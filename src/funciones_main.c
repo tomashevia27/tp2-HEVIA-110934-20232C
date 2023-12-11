@@ -16,72 +16,48 @@ void limpiar_consola()
 void imprimir_grafica_ganador()
 {
 	printf("\n");
-	printf("  +----------------------------------+\n");
-	printf("  |                                  |\n");
-	printf("  |          ¡Felicitaciones!        |\n");
-	printf("  |         ¡Ganaste el juego!       |\n");
-	printf("  |                                  |\n");
-	printf("  |            \\ \\  |  / /           |\n");
-	printf("  |            ) ) | ( (             |\n");
-	printf("  |           / /  |  \\ \\            |\n");
-	printf("  |          / /   )   \\ \\           |\n");
-	printf("  |         / /   /     \\ \\          |\n");
-	printf("  |        / /   /_______\\ \\         |\n");
-	printf("  |       / /              \\ \\        |\n");
-	printf("  |      / /________________\\ \\      |\n");
-	printf("  |     / /                 \\ \\     |\n");
-	printf("  |    | |                   | |     |\n");
-	printf("  |    | |                   | |     |\n");
-	printf("  |    | |                   | |     |\n");
-	printf("  |    | |                   | |     |\n");
-	printf("  |    | |___________________| |     |\n");
-	printf("  |    \\ \\___________________/ /     |\n");
-	printf("  |     \\_____________________/      |\n");
-	printf("  +----------------------------------+\n");
+	printf("*     ,o888888o.             .8.          b.             8          .8.             d888888o.   8888888 8888888888 8 88888888888888\n");
+	printf("*    8888     `88.          .888.         888o.          8         .888.          .`8888:' `88.       8 8888       8 8888\n");
+	printf("* ,8 8888       `8.        :88888.        Y88888o.       8        :88888.         8.`8888.   Y8       8 8888       8 8888\n");
+	printf("* 88 8888                 . `88888.       .`Y888888o.    8       . `88888.        `8.`8888.           8 8888       8 8888\n");
+	printf("* 88 8888                .8. `88888.      8o. `Y888888o. 8      .8. `88888.        `8.`8888.          8 8888       8 888888888888\n");
+	printf("* 88 8888               .8`8. `88888.     8`Y8o. `Y88888o8     .8`8. `88888.        `8.`8888.         8 8888       8 8888\n");
+	printf("* 88 8888   8888888    .8' `8. `88888.    8   `Y8o. `Y8888    .8' `8. `88888.        `8.`8888.        8 8888       8 8888\n");
+	printf("* `8 8888       .8'   .8'   `8. `88888.   8      `Y8o. `Y8   .8'   `8. `88888.   8b   `8.`8888.       8 8888       8 8888\n");
+	printf("*    8888     ,88'   .888888888. `88888.  8         `Y8o.`  .888888888. `88888.  `8b.  ;8.`8888       8 8888       8 8888\n");
+	printf("*     `8888888P'    .8'       `8. `88888. 8            `Yo .8'       `8. `88888.  `Y8888P ,88P'       8 8888       8 88888888888888\n");
 	printf("\n");
 }
 
 void imprimir_grafica_perdedor()
 {
 	printf("\n");
-	printf("  +----------------------------------+\n");
-	printf("  |                                  |\n");
-	printf("  |         Perdiste el juego         |\n");
-	printf("  |          Mejor suerte la         |\n");
-	printf("  |            próxima vez.           |\n");
-	printf("  |                                  |\n");
-	printf("  |            __________            |\n");
-	printf("  |           '._==_==_=_.'           |\n");
-	printf("  |           .-\\:            /-.    |\n");
-	printf("  |          | (|:.           |) |   |\n");
-	printf("  |           '-|:.           |-'    |\n");
-	printf("  |             \\::.          /      |\n");
-	printf("  |              '::.        '       |\n");
-	printf("  |                )       (        |\n");
-	printf("  |              _.'       '._      |\n");
-	printf("  |             '-----------'       |\n");
-	printf("  +----------------------------------+\n");
+	printf("* 8 888888888o   8 8888888888   8 888888888o.   8 888888888o.       8 8888    d888888o.   8888888 8888888888 8 88888888888888\n");
+	printf("* 8 8888    `88. 8 8888         8 8888    `88.  8 8888    `^888.    8 8888  .`8888:' `88.       8 8888       8 8888\n");
+	printf("* 8 8888     `88 8 8888         8 8888     `88  8 8888        `88.  8 8888  8.`8888.   Y8       8 8888       8 8888\n");
+	printf("* 8 8888     ,88 8 8888         8 8888     ,88  8 8888         `88  8 8888  `8.`8888.           8 8888       8 8888\n");
+	printf("* 8 8888.   ,88' 8 888888888888 8 8888.   ,88'  8 8888          88  8 8888   `8.`8888.          8 8888       8 888888888888\n");
+	printf("* 8 888888888P'  8 8888         8 888888888P'   8 8888          88  8 8888    `8.`8888.         8 8888       8 8888\n");
+	printf("* 8 8888         8 8888         8 8888`8b       8 8888         ,88  8 8888     `8.`8888.        8 8888       8 8888\n");
+	printf("* 8 8888         8 8888         8 8888 `8b.     8 8888        ,88'  8 8888 8b   `8.`8888.       8 8888       8 8888\n");
+	printf("* 8 8888         8 8888         8 8888   `8b.   8 8888    ,o88P'    8 8888 `8b.  ;8.`8888       8 8888       8 8888\n");
+	printf("* 8 8888         8 888888888888 8 8888     `88. 8 888888888P'       8 8888  `Y8888P ,88P'       8 8888       8 88888888888888\n");
 	printf("\n");
 }
 
 void imprimir_grafica_empate()
 {
 	printf("\n");
-	printf("  +----------------------------------+\n");
-	printf("  |                                  |\n");
-	printf("  |          ¡Es un empate!          |\n");
-	printf("  |        Ningún jugador ganó.      |\n");
-	printf("  |       Mejor suerte la próxima     |\n");
-	printf("  |                vez.              |\n");
-	printf("  |                                  |\n");
-	printf("  |           .-''''''-._             |\n");
-	printf("  |         .'          '.           |\n");
-	printf("  |        /   O      O   \\          |\n");
-	printf("  |       :           `    :         |\n");
-	printf("  |        \\              /          |\n");
-	printf("  |         '.          .'           |\n");
-	printf("  |           '-......-'             |\n");
-	printf("  +----------------------------------+\n");
+	printf("* 8 8888888888            ,8.       ,8.          8 888888888o            .8.          8888888 8888888888 8 88888888888888");
+	printf("* 8 8888                 ,888.     ,888.         8 8888    `88.         .888.               8 8888       8 8888");
+	printf("* 8 8888                .`8888.   .`8888.        8 8888     `88        :88888.              8 8888       8 8888");
+	printf("* 8 8888               ,8.`8888. ,8.`8888.       8 8888     ,88       . `88888.             8 8888       8 8888");
+	printf("* 8 888888888888      ,8'8.`8888,8^8.`8888.      8 8888.   ,88'      .8. `88888.            8 8888       8 888888888888");
+	printf("* 8 8888             ,8' `8.`8888' `8.`8888.     8 888888888P'      .8`8. `88888.           8 8888       8 8888");
+	printf("* 8 8888            ,8'   `8.`88'   `8.`8888.    8 8888            .8' `8. `88888.          8 8888       8 8888");
+	printf("* 8 8888           ,8'     `8.`'     `8.`8888.   8 8888           .8'   `8. `88888.         8 8888       8 8888");
+	printf("* 8 8888          ,8'       `8        `8.`8888.  8 8888          .888888888. `88888.        8 8888       8 8888");
+	printf("* 8 888888888888 ,8'         `         `8.`8888. 8 8888         .8'       `8. `88888.       8 8888       8 88888888888888");
 	printf("\n");
 }
 
@@ -320,6 +296,7 @@ bool jugar_rondas(void *e)
 {
 	struct estado_juego *estado = e;
 	resultado_jugada_t resultado_jugada;
+
 	limpiar_consola();
 
 	if (!estado->se_eligieron_pokemones) {
@@ -330,24 +307,29 @@ bool jugar_rondas(void *e)
 	while (!juego_finalizado(estado->juego)) {
 		lista_con_cada_elemento(estado->pokemones_disponibles,
 					mostrar_pokemon, NULL);
+
 		if (estado->rondas_jugadas > 0)
 			printf("EN LA RONDA ANTERIOR SUMASTE %i PUNTOS y EL ADVERSARIO SUMO %i PUNTOS\n\n",
 			       resultado_jugada.jugador1,
 			       resultado_jugada.jugador2);
+
 		printf("TU PUNTAJE: %i     -     PUNTAJE ADVERSARIO: %i\nRONDAS JUGADAS: %i (son 9 rondas en total)\n\n",
 		       juego_obtener_puntaje(estado->juego, JUGADOR1),
 		       juego_obtener_puntaje(estado->juego, JUGADOR2),
 		       estado->rondas_jugadas);
+
 		jugada_t jugada_jugador = pedir_jugada(estado);
 		jugada_t jugada_adversario =
 			adversario_proxima_jugada(estado->adversario);
 		resultado_jugada = juego_jugar_turno(
 			estado->juego, jugada_jugador, jugada_adversario);
 		limpiar_consola();
-		if (resultado_jugada.jugador1 == ATAQUE_ERROR)
-			printf("\nNo se pudo realizar la jugada, recorda que no podes usar ataques que ya han sido utilizados y de escribir correctamente los nombres del pokemon y el ataque\n");
-		else
+		adversario_informar_jugada(estado->adversario, jugada_jugador);
+		if (resultado_jugada.jugador1 == ATAQUE_ERROR) {
+			printf("\nNo se pudo realizar la jugada anterior, recorda que no podes usar ataques que ya han sido utilizados y de escribir correctamente los nombres del pokemon y el ataque\n\n\n\n");
+		} else {
 			estado->rondas_jugadas++;
+		}
 	}
 
 	limpiar_consola();
@@ -361,6 +343,9 @@ bool jugar_rondas(void *e)
 		} else {
 			imprimir_grafica_empate();
 		}
+		printf("TU PUNTAJE: %i     -     PUNTAJE ADVERSARIO: %i\n\n",
+		       juego_obtener_puntaje(estado->juego, JUGADOR1),
+		       juego_obtener_puntaje(estado->juego, JUGADOR2));
 		printf("\n\n\nGRACIAS POR HABER JUGADO EL JUEGO! volve a jugarlo cuando quieras!\n\n\n");
 	}
 	return true;
