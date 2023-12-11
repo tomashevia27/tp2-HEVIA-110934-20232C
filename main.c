@@ -3,76 +3,59 @@
 #include "src/juego.h"
 #include "src/lista.h"
 #include "src/adversario.h"
+#include "src/menu.h"
+#include "src/funciones_main.h"
 #include <stdio.h>
-
-/**
-* Este main debe ser modificado para que el usuario pueda jugar el juego. Las
-* instrucciones existentes son solamente a modo ilustrativo del funcionamiento
-* muy alto nivel del juego.
-*
-* Las interacciones deben realizarse por entrada/salida estandar y estar validadas.
-*
-* Se aconseja en todo momento mostrar información relevante para el jugador (por
-* ejemplo, mostrar puntaje actual y movimientos disponibles) para hacer que el
-* juego sea facil de utilizar.
-*/
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
-	juego_t *juego = juego_crear();
+	limpiar_consola();
+	juego_t *j = juego_crear();
 
-	//Pide al usuario un nombre de archivo de pokemones
-	char *archivo = pedir_archivo();
+	menu_t *menu = menu_crear();
+	menu_agregar_comando(menu, "c", "Cargar un archivo",
+			     cargar_archivo_pokemones);
+	menu_agregar_comando(menu, "l", "Listar pokemones", listar_pokemones);
+	menu_agregar_comando(menu, "s", "Seleccionar pokemones",
+			     seleccionar_pokemones);
+	menu_agregar_comando(menu, "j", "Arranca a jugar", jugar_rondas);
+	menu_agregar_comando(menu, "q", "Sale del juego", salir);
+	menu_agregar_comando(menu, "help", "Muestra ayuda", mostrar_ayuda);
 
-	//Carga los pokemon
-	juego_cargar_pokemon(juego, archivo);
+	struct estado_juego estado = { .juego = j,
+				       .adversario = NULL,
+				       .pokemones_disponibles = NULL,
+				       .continuar = true,
+				       .se_eligieron_pokemones = false,
+				       .archivo_cargado = false,
+				       .rondas_jugadas = 0,
+				       .menu = menu };
 
-	//Crea un adversario que será utilizado como jugador 2
-	adversario_t *adversario =
-		adversario_crear(juego_listar_pokemon(juego));
+	printf("Bienvenido al juego de batallas de pokemon\n\nEstos son los comandos para jugar:\n");
+	mostrar_ayuda(&estado);
+	printf("\nIngrese comandos a continuacion o escriba 'help' para obtener ayuda.\n\n");
 
-	//Mostrar el listado de pokemones por consola para que el usuario sepa las opciones que tiene
-	mostrar_pokemon_disponibles(juego);
+	while (!juego_finalizado(j) && estado.continuar) {
+		printf("TP2> ");
 
-	//Pedirle al jugador por consola que ingrese los 3 nombres de pokemon que quiere utilizar
-	char *eleccionJugador1, *eleccionJugador2, *eleccionJugador3;
-	jugador_seleccionar_pokemon(juego, &eleccion_adversario1,
-				    &eleccion_adversario2,
-				    &eleccion_adversario3);
+		char linea[200];
+		char *leido;
+		leido = fgets(linea, 200, stdin);
+		if (leido == NULL)
+			continue;
+		linea[strlen(linea) - 1] = 0;
 
-	//pedirle al adversario que indique los 3 pokemon que quiere usar
-	char *eleccionAdversario1, *eleccionAdversario2, *eleccionAdversario3;
-	adversario_seleccionar_pokemon(adversario, &eleccionAdversario1,
-				       &eleccionAdversario2,
-				       &eleccionAdversario3);
-
-	//Seleccionar los pokemon de los jugadores
-	juego_seleccionar_pokemon(juego, JUGADOR1, eleccionJugador1,
-				  eleccionJugador2, eleccionJugador3);
-	juego_seleccionar_pokemon(juego, JUGADOR2, eleccionAdversario1,
-				  eleccionAdversario2, eleccionAdversario3);
-
-	//informarle al adversario cuales son los pokemon del jugador
-	adversario_pokemon_seleccionado(adversario, eleccionJugador1,
-					eleccionJugador2, eleccionJugador3);
-
-	while (!juego_finalizado(juego)) {
-		resultado_jugada_t resultado_ronda;
-
-		//Pide al jugador que ingrese por consola el pokemon y ataque para la siguiente ronda
-		jugada_t jugada_jugador = jugador_pedir_nombre_y_ataque();
-
-		//Pide al adversario que informe el pokemon y ataque para la siguiente ronda
-		jugada_t jugada_adversario =
-			adversario_proxima_jugada(adversario);
-
-		//jugar la ronda y después comprobar que esté todo ok, si no, volver a pedir la jugada del jugador
-		resultado_ronda = juego_jugar_turno(juego, jugada_jugador,
-						    jugada_adversario);
-
-		//Si se pudo jugar el turno, le informo al adversario la jugada realizada por el jugador
-		adversario_informar_jugada(adversario, jugada_jugador);
+		if (!menu_ejecutar_comando(menu, linea, &estado))
+			printf("Ese comando no existe. Escriba 'help' para obtener ayuda\n");
 	}
 
-	juego_destruir(juego);
+	if (estado.adversario != NULL)
+		adversario_destruir(estado.adversario);
+	if (estado.pokemones_disponibles != NULL)
+		lista_destruir(estado.pokemones_disponibles);
+	juego_destruir(j);
+	menu_destruir(menu);
+
+	return 0;
 }
